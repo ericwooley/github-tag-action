@@ -1,3 +1,7 @@
+I modified this to work with the default commitizen settings, BREAKING, feat, and fix trigger the semver versions.
+
+all credit should go to https://github.com/anothrNick/github-tag-action
+
 # github-tag-action
 
 A Github Action to automatically bump and tag master, on merge, with the latest SemVer formatted version.
@@ -26,7 +30,7 @@ jobs:
       with:
         fetch-depth: '0'
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.17.2
+      uses: ericwooley/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
@@ -58,9 +62,9 @@ _NOTE: set the fetch-depth for `actions/checkout@master` to be sure you retrieve
 
 ### Bumping
 
-**Manual Bumping:** Any commit message that includes `#major`, `#minor`, or `#patch` will trigger the respective version bump. If two or more are present, the highest-ranking one will take precedence.
+**Manual Bumping:** Any commit message that includes `BREAKING`, `feat`, or `fix` will trigger the respective version bump. If two or more are present, the highest-ranking one will take precedence.
 
-**Automatic Bumping:** If no `#major`, `#minor` or `#patch` tag is contained in the commit messages, it will bump whichever `DEFAULT_BUMP` is set to (which is `minor` by default). Disable this by setting `DEFAULT_BUMP` to `none`.
+**Automatic Bumping:** If no `BREAKING`, `feat` or `fix` tag is contained in the commit messages, it will bump whichever `DEFAULT_BUMP` is set to (which is `minor` by default). Disable this by setting `DEFAULT_BUMP` to `none`.
 
 > ***Note:*** This action **will not** bump the tag if the `HEAD` commit has already been tagged.
 
@@ -71,7 +75,7 @@ _NOTE: set the fetch-depth for `actions/checkout@master` to be sure you retrieve
 * Either push to master or open a PR
 * On push (or merge) to `master`, the action will:
   * Get latest tag
-  * Bump tag with minor version unless any commit message contains `#major` or `#patch`
+  * Bump tag with minor version unless any commit message contains `BREAKING` or `fix`
   * Pushes tag to github
 
 ### Credits
