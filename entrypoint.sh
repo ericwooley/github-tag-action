@@ -72,11 +72,11 @@ function default-bump {
 }
 
 # get commit logs and determine home to bump the version
-# supports #major, #minor, #patch (anything else will be 'minor')
+# supports #major, #feat, #fix (anything else will be 'minor')
 case "$log" in
-    *#major* ) new=$(semver bump major $tag); part="major";;
-    *#minor* ) new=$(semver bump minor $tag); part="minor";;
-    *#patch* ) new=$(semver bump patch $tag); part="patch";;
+    *#BREAKING* ) new=$(semver bump major $tag); part="major";;
+    *#feat* ) new=$(semver bump minor $tag); part="minor";;
+    *#fix* ) new=$(semver bump patch $tag); part="patch";;
     * ) new=$(default-bump); part=$default_semvar_bump;;
 esac
 
